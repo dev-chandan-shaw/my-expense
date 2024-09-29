@@ -1,14 +1,18 @@
 <div
-  class="container text-center flex mb-2 gap-10 bg-white dark:bg-gray-800 shadow-md mx-auto rounded-md justify-between p-4 w-[400px]"
-  [ngClass]="{
-    'text-red-500': expenseItem.category === 'Food/Drink',
-    'text-yellow-400': expenseItem.category === 'Shopping',
-    'text-sky-600': expenseItem.category === 'Bill/Recharge',
-    'text-green-600': expenseItem.category === 'Transport',
-  }"
->
-  <div class="font-bold">
-    {{ expenseItem.category }}
+  class="container text-center flex mb-2 gap-10 bg-white dark:bg-gray-800 shadow-md mx-auto rounded-md justify-between p-4 w-[400px] text-white">
+  <div class="font-bold flex items-center gap-1">
+    @if (expenseItem.category === 'Food/Drink') {
+      <img class="h-7 w-7 rounded-full object-cover bg-white" src="https://w7.pngwing.com/pngs/742/10/png-transparent-breakfast-restaurant-cafe-indian-cuisine-ellipsis-breakfast-blue-food-text-thumbnail.png" alt="">
+    } @else if (expenseItem.category === 'Shopping') {
+      <img class="h-7 w-7 rounded-full object-cover bg-white" src="https://printify.com/wp-content/uploads/2022/06/Design-Placement-on-Front-of-Shirt-Oversize-Front.svg" alt="">
+    } @else if (expenseItem.category === 'Bill/Recharge') {
+      <img class="h-7 w-7 rounded-full object-cover bg-white" src="https://img.freepik.com/premium-vector/flat-illustration-money-lying-red-background-high-quality_599292-3954.jpg" alt="">
+    } @else if (expenseItem.category === 'Transport') {
+      <img class="h-7 w-7 rounded-full object-cover bg-white" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-8cns4F5KAgTddyY0484dJm81_8kuxcJIQA&s" alt="">
+    } 
+      
+    
+    <div>{{ expenseItem.category }}</div>
   </div>
-  <div class="font-semibold text-black">&#8377; {{ expenseItem.amount }}</div>
+  <div class="font-semibold text-black dark:text-white">&#8377; {{ expenseItem.amount }}</div>
 </div>
