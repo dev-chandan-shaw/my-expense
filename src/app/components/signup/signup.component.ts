@@ -27,7 +27,8 @@ export class SignupComponent {
   onSingup() {
     this.http.post(`${this.baseUrl}/users`, this.userObj).subscribe((res : any) => {
       if (res) {
-        localStorage.setItem("user", JSON.stringify(res))
+        console.log(res);
+        localStorage.setItem("user", JSON.stringify(res.data))
         this.router.navigateByUrl('/')
       } 
     })

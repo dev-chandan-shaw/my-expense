@@ -24,9 +24,8 @@ export class LoginComponent {
   onLogin() {
     this.http.post(`${this.baseUrl}/users/login`, this.loginDetails).subscribe((res : any) => {
       // if (res.status ==)
-      console.log(res);
       if (res) {
-        localStorage.setItem("user", JSON.stringify(res.data));
+        localStorage.setItem("user", JSON.stringify(res));
         this.router.navigateByUrl('')
       }
       
