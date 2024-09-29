@@ -26,7 +26,7 @@ export class LoginComponent {
       // if (res.status ==)
       console.log(res);
       if (res) {
-        localStorage.setItem("user", JSON.stringify(res));
+        localStorage.setItem("user", JSON.stringify(res.data));
         this.router.navigateByUrl('')
       }
       
