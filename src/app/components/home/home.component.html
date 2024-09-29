@@ -1,4 +1,5 @@
-<div class="bg-slate-100 py-2 h-dvh dark:bg-gray-900" [ngClass]="{'blur-sm': isAddExpenseFormOpen}" >
+<div class="bg-slate-100 py-2 dark:bg-gray-900" [ngClass]="{'blur-sm': isAddExpenseFormOpen}" >
+  <app-total-expesne-card></app-total-expesne-card>
   <div [ngClass]="{'backdrop-blur-sm': isAddExpenseFormOpen}">
     @for (expense of expenses; track $index) {
       <app-expense-card [expenseItem] = "expense" ></app-expense-card>
