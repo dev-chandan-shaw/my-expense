@@ -1,0 +1,12 @@
+<div class="bg-slate-100 py-2 h-dvh dark:bg-gray-900" [ngClass]="{'blur-sm': isAddExpenseFormOpen}" >
+  <div [ngClass]="{'backdrop-blur-sm': isAddExpenseFormOpen}">
+    @for (expense of expenses; track $index) {
+      <app-expense-card [expenseItem] = "expense" ></app-expense-card>
+    }
+  </div>
+  <app-navigation-bar [ngClass]="{'hidden bg-black' : isAddExpenseFormOpen}" [(isAddExpenseFormOpen)]="isAddExpenseFormOpen"> </app-navigation-bar>
+</div>
+
+<div>
+    <app-add-expense-form  *ngIf="isAddExpenseFormOpen" [(isAddExpenseFormOpen)]="isAddExpenseFormOpen"></app-add-expense-form>
+</div>
