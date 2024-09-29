@@ -16,7 +16,7 @@ interface Expense {
   styleUrl: './total-expesne-card.component.css',
 })
 export class TotalExpesneCardComponent implements OnInit {
-  baseUrl = 'http://localhost:8080/api/expenses';
+  baseUrl = 'https://expense-tracker-mzw2.onrender.com/api/expenses';
   // http://localhost:8080/api/expenses/query?userId=66f83404bdc2373bcf580212&month=8&year=2024
 
   expenseList: Expense[] = [];
