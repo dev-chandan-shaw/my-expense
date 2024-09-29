@@ -1,5 +1,5 @@
 <div
-  class="container text-center flex mb-2 gap-10 bg-white dark:bg-gray-800 text-white  shadow-md mx-auto rounded-md justify-between p-4 w-[400px]"
+  class="container text-center flex mb-2 gap-10 bg-white dark:bg-gray-800 shadow-md mx-auto rounded-md justify-between p-4 w-[400px]"
   [ngClass]="{
     'text-red-500': expenseItem.category === 'Food/Drink',
     'text-yellow-400': expenseItem.category === 'Shopping',
@@ -8,6 +8,7 @@
   }"
 >
   <div class="font-bold">
-     {{ expenseItem.category }}</div>
+    {{ expenseItem.category }}
+  </div>
   <div class="font-semibold text-black">&#8377; {{ expenseItem.amount }}</div>
 </div>
