@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 
@@ -11,7 +12,7 @@ interface Expense {
 @Component({
   selector: 'app-total-expesne-card',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './total-expesne-card.component.html',
   styleUrl: './total-expesne-card.component.css',
 })
@@ -20,6 +21,10 @@ export class TotalExpesneCardComponent implements OnInit {
   // http://localhost:8080/api/expenses/query?userId=66f83404bdc2373bcf580212&month=8&year=2024
 
   expenseList: Expense[] = [];
+
+  today = new Date();
+
+  todaysExpenseList : Expense[] = [];
 
   ngOnInit(): void {
     this.getAllExpense();
@@ -79,6 +84,7 @@ export class TotalExpesneCardComponent implements OnInit {
   getAllExpense() {
     let user = localStorage.getItem('user');
     console.log(this.currentMonth);
+    this.todaysExpenseList = [];
 
     if (user) {
       let parsedUser = JSON.parse(user);
@@ -102,6 +108,13 @@ export class TotalExpesneCardComponent implements OnInit {
                 ? expense.amount
                 : Number(expense.amount);
             console.log(amount);
+            
+            
+
+            if (new Date(expense.date).getDate() === new Date().getDate()) {
+              this.todaysExpenseList.push(expense);
+            }
+            
 
             if (expense.category === 'Food/Drink') {
               this.category[0].totalExpense += amount;
@@ -118,6 +131,7 @@ export class TotalExpesneCardComponent implements OnInit {
             }
             this.totalExpense += amount;
           });
+          
         });
     }
   }

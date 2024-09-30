@@ -16,3 +16,21 @@
     </div>
   </div>
 </div>
+
+<div class="flex justify-center items-center text-white m-auto mb-2">
+  <div class="bg-green-600 dark:bg-gray-800 p-5 w-[90%] lg:w-[50%] rounded-md">
+    <div class="date flex justify-center gap-4 items-center font-bold text-xl bg-orange-400 dark:bg-gray-600 p-3 rounded-md text-center">
+        <button class="font-extrabold" (click)="goToPreviousMonth()">&lt;</button>
+        <span class="w-[10rem]" > {{today | date}} </span>
+        <button class="font-extrabold" (click)="goToNextMonth()" > &gt; </button>
+    </div>
+    <div class="mt-2 font-semibold">
+        @for (item of todaysExpenseList; track $index) {
+            <div class="flex justify-between p-2 mx-5">
+                <div>{{item.category}}</div>
+                <div>&#8377;{{item.amount}}</div>
+            </div>
+        }
+    </div>
+  </div>
+</div>
