@@ -5,14 +5,13 @@ import { ExpenseCardComponent } from "./components/expense-card/expense-card.com
 import { NavigationBarComponent } from "./components/navigation-bar/navigation-bar.component";
 import { LoginComponent } from "./components/login/login.component";
 import { SignupComponent } from "./components/signup/signup.component";
+import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AddExpenseFormComponent, ExpenseCardComponent, NavigationBarComponent, LoginComponent, SignupComponent],
+  imports: [RouterOutlet, AddExpenseFormComponent, ExpenseCardComponent, NavigationBarComponent, LoginComponent, SignupComponent, NavBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'expense_tracker';
-}
+export class AppComponent {}
