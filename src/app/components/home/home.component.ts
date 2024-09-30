@@ -6,11 +6,12 @@ import { AddExpenseFormComponent } from "../add-expense-form/add-expense-form.co
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { TotalExpesneCardComponent } from "../total-expesne-card/total-expesne-card.component";
+import { NavBarComponent } from "../nav-bar/nav-bar.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ExpenseCardComponent, NavigationBarComponent, CommonModule, AddExpenseFormComponent, TotalExpesneCardComponent],
+  imports: [ExpenseCardComponent, NavigationBarComponent, CommonModule, AddExpenseFormComponent, TotalExpesneCardComponent, NavBarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
