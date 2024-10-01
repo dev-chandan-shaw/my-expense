@@ -141,8 +141,7 @@ export class TotalExpesneCardComponent implements OnInit {
     if (user) {
       let loggedInUser = JSON.parse(user);
       const userId = loggedInUser._id;
-      this.http.get<Expense[]>(`http://localhost:8080/api/expenses/66f83404bdc2373bcf580212/2024-10-01`).subscribe((res : Expense[]) => {
-        console.log(res);
+      this.http.get<Expense[]>(`${this.baseUrl}/expenses/${userId}/${year}-${month}-${day}`).subscribe((res : Expense[]) => {
         this.todaysExpenseList = res;
       })
     }
