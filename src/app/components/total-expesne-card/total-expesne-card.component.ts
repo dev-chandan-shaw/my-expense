@@ -135,13 +135,13 @@ export class TotalExpesneCardComponent implements OnInit {
 
   getTodaysExpense() {
     let day = this.today.getDate();
-    let month = this.today.getMonth();
+    let month = this.today.getMonth()+1;
     let year = this.today.getFullYear();
     let user = localStorage.getItem('user');
     if (user) {
       let loggedInUser = JSON.parse(user);
       const userId = loggedInUser._id;
-      this.http.get<Expense[]>(`${this.baseUrl}/expenses/${userId}/${year}-${month}-${day}`).subscribe((res : Expense[]) => {
+      this.http.get<Expense[]>(`${this.baseUrl}/${userId}/${year}-${month}-${day}`).subscribe((res : Expense[]) => {
         this.todaysExpenseList = res;
       })
     }
