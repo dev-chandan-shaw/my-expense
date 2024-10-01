@@ -85,7 +85,6 @@ export class TotalExpesneCardComponent implements OnInit {
   getAllExpense() {
     let user = localStorage.getItem('user');
     console.log(this.currentMonth);
-    this.todaysExpenseList = [];
 
     if (user) {
       let parsedUser = JSON.parse(user);
@@ -134,9 +133,10 @@ export class TotalExpesneCardComponent implements OnInit {
   totalExpense: number = 0;
 
   getTodaysExpense() {
-    let day = this.today.getDate();
-    let month = this.today.getMonth()+1;
-    let year = this.today.getFullYear();
+    let currentDate = new Date();
+    let day = currentDate.getDate();
+    let month = currentDate.getMonth()+1;
+    let year = currentDate.getFullYear();
     let user = localStorage.getItem('user');
     if (user) {
       let loggedInUser = JSON.parse(user);
