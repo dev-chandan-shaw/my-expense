@@ -3,13 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { ExpenseService } from '../../service/expense.service';
-
-interface Expense {
-  amount: Number;
-  category: string;
-  note: string;
-  date: Date;
-}
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { IExpense } from '../../models/interface/IExpense';
 
 interface Category {
   category_name : string,
@@ -20,21 +15,11 @@ interface Category {
 @Component({
   selector: 'app-total-expesne-card',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, MatProgressSpinnerModule],
   templateUrl: './total-expesne-card.component.html',
   styleUrl: './total-expesne-card.component.css',
 })
 export class TotalExpesneCardComponent implements OnInit {
-  baseUrl = 'https://expense-tracker-mzw2.onrender.com/api/expenses';
-
-  expenseList: Expense[] = [];
-
-  today = new Date();
-
-  todaysExpenseList: Expense[] = [];
-
-  totalExpense: number = 0;
-
   auth = inject(AuthService);
   expenseService = inject(ExpenseService);
   http = inject(HttpClient);
@@ -43,6 +28,20 @@ export class TotalExpesneCardComponent implements OnInit {
     this.getAllExpense();
     this.getTodaysExpense();
   }
+
+  expenseList: IExpense[] = [];
+
+  isLoading : boolean = true;
+
+  today = new Date();
+
+  todaysExpenseList: IExpense[] = [];
+
+  totalExpense: number = 0;
+
+  
+
+  
 
   category = [
     {
@@ -68,13 +67,10 @@ export class TotalExpesneCardComponent implements OnInit {
   ];
 
   currentDate = new Date();
-
   currentMonth = this.currentDate.getMonth();
-
   currentMonthName = this.currentDate.toLocaleString('default', {
     month: 'short',
   });
-
   currentYear = this.currentDate.getUTCFullYear();
 
   goToPreviousMonth() {
@@ -101,9 +97,9 @@ export class TotalExpesneCardComponent implements OnInit {
   getAllExpense() {
     this.expenseService
       .getAllExpenseByMonth(this.currentDate)
-      .subscribe((res) => {
+      .subscribe((res : IExpense[]) => {
+        this.isLoading = true;
         this.expenseList = res;
-        console.log(this.expenseList);
         this.totalExpense = 0;
 
         this.category.map((item) => {
@@ -119,11 +115,12 @@ export class TotalExpesneCardComponent implements OnInit {
           this.updateCategoryDetails(amount, expense);
           this.totalExpense += amount;
         });
+        this.isLoading = false;
       });
   }
   
 
-  updateCategoryDetails(amount: number, expense: Expense) {
+  updateCategoryDetails(amount: number, expense: IExpense) {
     if (expense.category === 'Food/Drink') {
       this.category[0].totalExpense += amount;
       this.category[0].totalTranscation += 1;
@@ -141,9 +138,10 @@ export class TotalExpesneCardComponent implements OnInit {
 
   getTodaysExpense() {
     let date = new Date();
-    this.expenseService.getAllExpenseByDate(date).subscribe((res) => {
-      console.log(res);
+    this.expenseService.getAllExpenseByDate(date).subscribe((res : IExpense[]) => {
+      this.isLoading = true;
       this.todaysExpenseList = res;
+      this.isLoading = false;
     });
   }
 

@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ExpenseService } from '../../service/expense.service';
+import { Expense } from '../../models/class/Expense';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-add-expense-form',
@@ -15,32 +18,24 @@ export class AddExpenseFormComponent {
   @Input() isAddExpenseFormOpen!:boolean
   @Output() isAddExpenseFormOpenChange = new EventEmitter<boolean>();
 
-  baseUrl = "https://expense-tracker-mzw2.onrender.com/api"
-
   router = inject(Router)
+  http = inject(HttpClient)
+  expesnseService = inject(ExpenseService);
+  auth = inject(AuthService);
     
 
-  expenseObj = {
-    userId : '',
-    category : '',
-    price : '',
-    note : '',
-  }
+  expense : Expense = new Expense(this.auth.getLoggedInUser()._id);
 
-  http = inject(HttpClient)
-
+  
   handleAddExpenseRequest() {
-    let user = localStorage.getItem('user')
-    if (user != null) {
-      let LoggedInUser = JSON.parse(user);
-      this.expenseObj.userId = LoggedInUser._id;
-      this.http.post(`${this.baseUrl}/expenses`, this.expenseObj).subscribe((res : any) => {
-        this.closeForm()
-      })
-    }
+    this.expesnseService.addExpense(this.expense).subscribe(res => {
+      this.closeForm()
+    })
   }
+
   closeForm() {
     this.isAddExpenseFormOpen = false;
     this.isAddExpenseFormOpenChange.emit(this.isAddExpenseFormOpen);
   }
+
 }

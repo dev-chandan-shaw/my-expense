@@ -29,7 +29,7 @@ export class SignupComponent {
   onSingup() {
     this.http.post(`${this.baseUrl}/users`, this.userObj).subscribe((res : any) => {
       if (res) {
-        this.auth.login(res)
+        this.auth.login(res.data)
         this.router.navigateByUrl('/home')
       } 
     })

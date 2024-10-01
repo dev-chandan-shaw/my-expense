@@ -18,6 +18,7 @@ export class AuthService implements OnInit {
 
   logout() {
     this.isLoggedIn = false;
+    localStorage.removeItem('user');
   }
 
   getStatus() : boolean {

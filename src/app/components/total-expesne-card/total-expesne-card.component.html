@@ -6,17 +6,18 @@
       class="date flex justify-center gap-4 items-center font-bold text-xl bg-blue-900 text-white dark:bg-gray-600 p-3 rounded-md text-center"
     >
       <button class="font-extrabold" (click)="goToPreviousMonth()">&lt;</button>
-      <span class="w-[10rem]"> {{ currentMonthName }} {{ currentYear }} </span>
+      <span class="w-[10rem]"> {{currentMonthName}}, {{currentYear}}</span>
       <button class="font-extrabold" (click)="goToNextMonth()">&gt;</button>
     </div>
     <div class="mt-2 font-semibold">
       @for (item of category; track $index) {
       <div class="flex justify-between p-2 mx-5">
+        
         <div>{{ item.categoryName }}</div>
         <div>&#8377;{{ item.totalExpense }}</div>
       </div>
       }
-      <div class="text-center dark:bg-gray-600 rounded-md p-2">
+      <div class="text-center p-2 mt-4 border-t-2 pt-4">
         Total expense - &#8377;{{ totalExpense }}
       </div>
     </div>
@@ -33,12 +34,16 @@
       <span class="w-[10rem] text-white"> {{ today | date }} </span>
     </div>
     <div class="mt-2 font-semibold text-black dark:text-white">
-      @if (todaysExpenseList.length == 0) {
-      <div class="p-2 mx-5 text-lg font-semibold text-center">No expense to show</div>
+      @if (isLoading) {
+      <div class="flex justify-center h-20 items-center"><mat-spinner [diameter]="40" ></mat-spinner></div>
+      } @else if (todaysExpenseList.length == 0) {
+      <div class="p-2 mx-5 text-lg font-semibold text-center">
+        No expense to show
+      </div>
       } @else { @for (item of todaysExpenseList; track $index) {
       <div class="flex justify-between p-2 mx-5">
         <div>{{ item.category }}</div>
-        <div>&#8377;{{ item.amount }}</div>
+        <div>{{ item.amount }}</div>
       </div>
       } }
     </div>
