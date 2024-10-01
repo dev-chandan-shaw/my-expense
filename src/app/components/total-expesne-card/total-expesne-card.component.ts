@@ -28,6 +28,7 @@ export class TotalExpesneCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllExpense();
+    this.getTodaysExpense();
   }
 
   category = [
@@ -92,7 +93,7 @@ export class TotalExpesneCardComponent implements OnInit {
         .get<Expense[]>(
           `${this.baseUrl}/query?userId=${parsedUser._id}&month=${this.currentMonth}&year=${this.currentYear}`
         )
-        .subscribe((res: Expense[]) => {
+        .subscribe((res : any) => {
           this.expenseList = res;
           console.log(this.expenseList);
           this.totalExpense = 0;
@@ -108,12 +109,7 @@ export class TotalExpesneCardComponent implements OnInit {
                 ? expense.amount
                 : Number(expense.amount);
             console.log(amount);
-            
-            
-
-            if (new Date(expense.date).getDate() === new Date().getDate()) {
-              this.todaysExpenseList.push(expense);
-            }
+          
             
 
             if (expense.category === 'Food/Drink') {
@@ -136,4 +132,20 @@ export class TotalExpesneCardComponent implements OnInit {
     }
   }
   totalExpense: number = 0;
+
+  getTodaysExpense() {
+    let day = this.today.getDate();
+    let month = this.today.getMonth();
+    let year = this.today.getFullYear();
+    let user = localStorage.getItem('user');
+    if (user) {
+      let loggedInUser = JSON.parse(user);
+      const userId = loggedInUser._id;
+      this.http.get<Expense[]>(`http://localhost:8080/api/expenses/66f83404bdc2373bcf580212/2024-10-01`).subscribe((res : Expense[]) => {
+        console.log(res);
+        this.todaysExpenseList = res;
+      })
+    }
+    
+  }
 }
