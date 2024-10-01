@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,13 +21,13 @@ export class LoginComponent {
 
   http = inject(HttpClient);
   router = inject(Router);
+  auth = inject(AuthService);
 
   onLogin() {
     this.http.post(`${this.baseUrl}/users/login`, this.loginDetails).subscribe((res : any) => {
-      // if (res.status ==)
       if (res) {
-        localStorage.setItem("user", JSON.stringify(res));
-        this.router.navigateByUrl('')
+        this.auth.login(res)
+        this.router.navigateByUrl('/home')
       }
       
     }, err => {

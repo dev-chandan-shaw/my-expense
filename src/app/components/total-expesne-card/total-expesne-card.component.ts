@@ -1,12 +1,20 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
+import { AuthService } from '../../service/auth.service';
+import { ExpenseService } from '../../service/expense.service';
 
 interface Expense {
   amount: Number;
   category: string;
   note: string;
   date: Date;
+}
+
+interface Category {
+  category_name : string,
+  total_expense : number,
+  total_transaction : number
 }
 
 @Component({
@@ -18,13 +26,18 @@ interface Expense {
 })
 export class TotalExpesneCardComponent implements OnInit {
   baseUrl = 'https://expense-tracker-mzw2.onrender.com/api/expenses';
-  // http://localhost:8080/api/expenses/query?userId=66f83404bdc2373bcf580212&month=8&year=2024
 
   expenseList: Expense[] = [];
 
   today = new Date();
 
-  todaysExpenseList : Expense[] = [];
+  todaysExpenseList: Expense[] = [];
+
+  totalExpense: number = 0;
+
+  auth = inject(AuthService);
+  expenseService = inject(ExpenseService);
+  http = inject(HttpClient);
 
   ngOnInit(): void {
     this.getAllExpense();
@@ -54,97 +67,85 @@ export class TotalExpesneCardComponent implements OnInit {
     },
   ];
 
-  date = new Date();
+  currentDate = new Date();
 
-  currentMonth = this.date.getMonth();
-  currentMonthName = this.date.toLocaleString('default', { month: 'short' });
-  currentYear = this.date.getUTCFullYear();
+  currentMonth = this.currentDate.getMonth();
+
+  currentMonthName = this.currentDate.toLocaleString('default', {
+    month: 'short',
+  });
+
+  currentYear = this.currentDate.getUTCFullYear();
 
   goToPreviousMonth() {
-    this.date.setMonth(this.currentMonth - 1);
-    this.currentMonth = this.date.getMonth();
-    this.currentMonthName = this.date.toLocaleString('default', {
+    this.currentDate.setMonth(this.currentMonth - 1);
+    this.currentMonth = this.currentDate.getMonth();
+    this.currentMonthName = this.currentDate.toLocaleString('default', {
       month: 'short',
     });
-    this.currentYear = this.date.getFullYear();
+    this.currentYear = this.currentDate.getFullYear();
     this.getAllExpense();
   }
 
   goToNextMonth() {
-    this.date.setMonth(this.currentMonth + 1);
-    this.currentMonth = this.date.getMonth();
-    this.currentMonthName = this.date.toLocaleString('default', {
+    this.currentDate.setMonth(this.currentMonth + 1);
+    this.currentMonth = this.currentDate.getMonth();
+    this.currentMonthName = this.currentDate.toLocaleString('default', {
       month: 'short',
     });
-    this.currentYear = this.date.getFullYear();
+    this.currentYear = this.currentDate.getFullYear();
     this.getAllExpense();
   }
 
-  http = inject(HttpClient);
 
   getAllExpense() {
-    let user = localStorage.getItem('user');
-    console.log(this.currentMonth);
+    this.expenseService
+      .getAllExpenseByMonth(this.currentDate)
+      .subscribe((res) => {
+        this.expenseList = res;
+        console.log(this.expenseList);
+        this.totalExpense = 0;
 
-    if (user) {
-      let parsedUser = JSON.parse(user);
-      this.http
-        .get<Expense[]>(
-          `${this.baseUrl}/query?userId=${parsedUser._id}&month=${this.currentMonth}&year=${this.currentYear}`
-        )
-        .subscribe((res : any) => {
-          this.expenseList = res;
-          console.log(this.expenseList);
-          this.totalExpense = 0;
-
-          this.category.map((item) => {
-            item.totalExpense = 0;
-            item.totalTranscation = 0;
-          });
-
-          this.expenseList.map((expense) => {
-            const amount =
-              typeof expense.amount === 'number'
-                ? expense.amount
-                : Number(expense.amount);
-            console.log(amount);
-          
-            
-
-            if (expense.category === 'Food/Drink') {
-              this.category[0].totalExpense += amount;
-              this.category[0].totalTranscation += 1;
-            } else if (expense.category === 'Shopping') {
-              this.category[1].totalExpense += amount;
-              this.category[1].totalTranscation += 1;
-            } else if (expense.category === 'Bill/Recharge') {
-              this.category[2].totalExpense += amount;
-              this.category[2].totalTranscation += 1;
-            } else if (expense.category === 'Transport') {
-              this.category[3].totalExpense += amount;
-              this.category[3].totalTranscation += 1;
-            }
-            this.totalExpense += amount;
-          });
-          
+        this.category.map((item) => {
+          item.totalExpense = 0;
+          item.totalTranscation = 0;
         });
+
+        this.expenseList.map((expense) => {
+          const amount =
+            typeof expense.amount === 'number'
+              ? expense.amount
+              : Number(expense.amount);
+          this.updateCategoryDetails(amount, expense);
+          this.totalExpense += amount;
+        });
+      });
+  }
+  
+
+  updateCategoryDetails(amount: number, expense: Expense) {
+    if (expense.category === 'Food/Drink') {
+      this.category[0].totalExpense += amount;
+      this.category[0].totalTranscation += 1;
+    } else if (expense.category === 'Shopping') {
+      this.category[1].totalExpense += amount;
+      this.category[1].totalTranscation += 1;
+    } else if (expense.category === 'Bill/Recharge') {
+      this.category[2].totalExpense += amount;
+      this.category[2].totalTranscation += 1;
+    } else if (expense.category === 'Transport') {
+      this.category[3].totalExpense += amount;
+      this.category[3].totalTranscation += 1;
     }
   }
-  totalExpense: number = 0;
 
   getTodaysExpense() {
-    let currentDate = new Date();
-    let day = currentDate.getDate();
-    let month = currentDate.getMonth()+1;
-    let year = currentDate.getFullYear();
-    let user = localStorage.getItem('user');
-    if (user) {
-      let loggedInUser = JSON.parse(user);
-      const userId = loggedInUser._id;
-      this.http.get<Expense[]>(`${this.baseUrl}/${userId}/${year}-${month}-${day}`).subscribe((res : Expense[]) => {
-        this.todaysExpenseList = res;
-      })
-    }
-    
+    let date = new Date();
+    this.expenseService.getAllExpenseByDate(date).subscribe((res) => {
+      console.log(res);
+      this.todaysExpenseList = res;
+    });
   }
+
+
 }

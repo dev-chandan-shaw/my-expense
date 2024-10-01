@@ -7,11 +7,12 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { TotalExpesneCardComponent } from "../total-expesne-card/total-expesne-card.component";
 import { NavBarComponent } from "../nav-bar/nav-bar.component";
+import { UserProfileComponent } from "../user-profile/user-profile.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ExpenseCardComponent, NavigationBarComponent, CommonModule, AddExpenseFormComponent, TotalExpesneCardComponent, NavBarComponent],
+  imports: [ExpenseCardComponent, NavigationBarComponent, CommonModule, AddExpenseFormComponent, TotalExpesneCardComponent, NavBarComponent, UserProfileComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

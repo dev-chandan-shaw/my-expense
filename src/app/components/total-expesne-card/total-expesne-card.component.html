@@ -1,34 +1,46 @@
-<div class="flex justify-center items-center text-white m-auto mb-2">
-  <div class="bg-green-600 dark:bg-gray-800 p-5 w-[90%] lg:w-[50%] rounded-md">
-    <div class="date flex justify-center gap-4 items-center font-bold text-xl bg-orange-400 dark:bg-gray-600 p-3 rounded-md text-center">
-        <button class="font-extrabold" (click)="goToPreviousMonth()">&lt;</button>
-        <span class="w-[10rem]" > {{currentMonthName}}  {{currentYear}} </span>
-        <button class="font-extrabold" (click)="goToNextMonth()" > &gt; </button>
+<div class="flex justify-center items-center m-auto mb-2">
+  <div
+    class="bg-white text-black shadow-md dark:text-white shadow-mdx` dark:bg-gray-800 p-5 w-[90%] lg:w-[50%] rounded-md"
+  >
+    <div
+      class="date flex justify-center gap-4 items-center font-bold text-xl bg-blue-900 text-white dark:bg-gray-600 p-3 rounded-md text-center"
+    >
+      <button class="font-extrabold" (click)="goToPreviousMonth()">&lt;</button>
+      <span class="w-[10rem]"> {{ currentMonthName }} {{ currentYear }} </span>
+      <button class="font-extrabold" (click)="goToNextMonth()">&gt;</button>
     </div>
     <div class="mt-2 font-semibold">
-        @for (item of category; track $index) {
-            <div class="flex justify-between p-2 mx-5">
-                <div>{{item.categoryName}}</div>
-                <div>&#8377;{{item.totalExpense}}</div>
-            </div>
-        }
-        <div class="text-center dark:bg-gray-600 rounded-md p-2 ">Total expense - &#8377;{{totalExpense}} </div>
+      @for (item of category; track $index) {
+      <div class="flex justify-between p-2 mx-5">
+        <div>{{ item.categoryName }}</div>
+        <div>&#8377;{{ item.totalExpense }}</div>
+      </div>
+      }
+      <div class="text-center dark:bg-gray-600 rounded-md p-2">
+        Total expense - &#8377;{{ totalExpense }}
+      </div>
     </div>
   </div>
 </div>
 
 <div class="flex justify-center items-center text-white m-auto mb-2">
-  <div class="bg-green-600 dark:bg-gray-800 p-5 w-[90%] lg:w-[50%] rounded-md">
-    <div class="date flex justify-center gap-4 items-center font-bold text-xl bg-orange-400 dark:bg-gray-600 p-3 rounded-md text-center">
-        <span class="w-[10rem]" > {{today | date}} </span>
+  <div
+    class="bg-white shadow-md dark:bg-gray-800 p-5 w-[90%] lg:w-[50%] rounded-md"
+  >
+    <div
+      class="date flex justify-center gap-4 items-center font-bold text-xl bg-blue-900 dark:bg-gray-600 p-3 rounded-md text-center"
+    >
+      <span class="w-[10rem] text-white"> {{ today | date }} </span>
     </div>
-    <div class="mt-2 font-semibold">
-        @for (item of todaysExpenseList; track $index) {
-            <div class="flex justify-between p-2 mx-5">
-                <div>{{item.category}}</div>
-                <div>&#8377;{{item.amount}}</div>
-            </div>
-        }
+    <div class="mt-2 font-semibold text-black dark:text-white">
+      @if (todaysExpenseList.length == 0) {
+      <div class="p-2 mx-5 text-lg font-semibold text-center">No expense to show</div>
+      } @else { @for (item of todaysExpenseList; track $index) {
+      <div class="flex justify-between p-2 mx-5">
+        <div>{{ item.category }}</div>
+        <div>&#8377;{{ item.amount }}</div>
+      </div>
+      } }
     </div>
   </div>
 </div>

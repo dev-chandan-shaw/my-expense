@@ -7,11 +7,12 @@ import {
 } from '@angular/core';
 import { AddExpenseFormComponent } from '../add-expense-form/add-expense-form.component';
 import { CommonModule, NgClass } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
   standalone: true,
-  imports: [AddExpenseFormComponent, NgClass, CommonModule],
+  imports: [AddExpenseFormComponent, NgClass, CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navigation-bar.component.html',
   styleUrl: './navigation-bar.component.css',
 })

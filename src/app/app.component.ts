@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AddExpenseFormComponent } from "./components/add-expense-form/add-expense-form.component";
 import { ExpenseCardComponent } from "./components/expense-card/expense-card.component";
@@ -7,6 +7,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { SignupComponent } from "./components/signup/signup.component";
 import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 import { CommonModule } from '@angular/common';
+import { AuthService } from './service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -17,4 +18,11 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   isFormOpen!:boolean
+
+
+  auth = inject(AuthService)
+
+  get isUserLoggedIn(): boolean {
+    return this.auth.getStatus();
+  }
 }
