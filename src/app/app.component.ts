@@ -6,12 +6,15 @@ import { NavigationBarComponent } from "./components/navigation-bar/navigation-b
 import { LoginComponent } from "./components/login/login.component";
 import { SignupComponent } from "./components/signup/signup.component";
 import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AddExpenseFormComponent, ExpenseCardComponent, NavigationBarComponent, LoginComponent, SignupComponent, NavBarComponent],
+  imports: [RouterOutlet, AddExpenseFormComponent, CommonModule, ExpenseCardComponent, NavigationBarComponent, LoginComponent, SignupComponent, NavBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {}
+export class AppComponent {
+  isFormOpen!:boolean
+}

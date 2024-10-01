@@ -16,6 +16,7 @@ import { NavBarComponent } from "../nav-bar/nav-bar.component";
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
+  
   isAddExpenseFormOpen!:boolean
 
   expenses : [] = [];

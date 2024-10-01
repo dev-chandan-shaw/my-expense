@@ -1,4 +1,16 @@
 <div class="bg-slate-100 dark:bg-slate-900">
-  <app-nav-bar></app-nav-bar>
   <router-outlet></router-outlet>
+  <app-navigation-bar
+    [(isAddExpenseFormOpen)]="isFormOpen"
+  ></app-navigation-bar>
+</div>
+<div
+  *ngIf="isFormOpen"
+  class="h-dvh absolute top-[50%] left-[50%] backdrop-blur-sm w-full translate-x-[-50%] translate-y-[-50%]"
+>
+  <div class="flex h-dvh items-center w-full justify-center">
+    <app-add-expense-form
+      [(isAddExpenseFormOpen)]="isFormOpen"
+    ></app-add-expense-form>
+  </div>
 </div>
