@@ -1,4 +1,6 @@
-<div class="p-4 font-medium mx-4 border-b-2 text-lg">All transaction</div>
+
+<div class="lg:w-[50%] m-auto lg:shadow-md">
+    <div class="p-4 font-medium mx-4 border-b-2 text-lg">All transaction</div>
 @if (isLoading) {
 <div class="flex justify-center h-[80vh] items-center">
   <mat-spinner [diameter]="40"></mat-spinner>
@@ -6,3 +8,4 @@
 } @else { @for (item of expenseList; track $index) {
 <app-expense-card [expenseItem]="item"></app-expense-card>
 } }
+</div>

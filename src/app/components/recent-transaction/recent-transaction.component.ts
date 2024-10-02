@@ -4,33 +4,37 @@ import { ExpenseService } from '../../service/expense.service';
 import { CommonModule, DatePipe } from '@angular/common';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ExpenseCardComponent } from "../expense-card/expense-card.component";
+import { ExpenseCardComponent } from '../expense-card/expense-card.component';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-recent-transaction',
   standalone: true,
-  imports: [CommonModule, DatePipe, RouterLink, MatProgressSpinnerModule, ExpenseCardComponent],
+  imports: [
+    CommonModule,
+    DatePipe,
+    RouterLink,
+    MatProgressSpinnerModule,
+    ExpenseCardComponent,
+  ],
   templateUrl: './recent-transaction.component.html',
-  styleUrl: './recent-transaction.component.css'
+  styleUrl: './recent-transaction.component.css',
 })
-export class RecentTransactionComponent implements OnInit{
+export class RecentTransactionComponent implements OnInit {
+  recentExpenseList: IExpense[] = [];
+  isLoading:boolean = true;
 
-    recentExpenseList : IExpense[] = []
-    isLoading: boolean = true;
-    
+  expenseService = inject(ExpenseService);
 
-    expenseService = inject(ExpenseService);
+  ngOnInit(): void {
+    this.getRecentExpense();
+  }
 
-    ngOnInit(): void {
-        this.getRecentExpense();
-    }
-
-    getRecentExpense() {
-      this.expenseService.getLimitedExpense(10).subscribe((res : IExpense[]) => {
-        this.isLoading = true;
-        this.recentExpenseList = res;
-        this.isLoading = false;
-      })
-    }
+  getRecentExpense() {
+    this.expenseService.getRecentExpenseService(10);
+    this.expenseService.recentExpense$.subscribe((res: IExpense[]) => {
+      this.recentExpenseList = res;
+      this.isLoading = false;
+    });
+  }
 }

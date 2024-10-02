@@ -28,7 +28,13 @@ export class ViewAllTransactionComponent implements OnInit{
     })
   }
 
+
   ngOnInit(): void {
-      this.getAllExpense()
+      this.isLoading = true;
+      this.expenseService.getAllExpenseService();
+      this.expenseService.allExpense$.subscribe(res => {
+        this.expenseList = res;
+      })
+      this.isLoading = false;
   }
 }

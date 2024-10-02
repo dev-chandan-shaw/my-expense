@@ -1,7 +1,7 @@
 <div
-  class="text-base lg:w-[50%] m-5 lg:m-auto rounded-md lg:border lg:px-4 lg:shadow-lg"
+  class="text-base lg:w-[50%] lg:m-auto rounded-md lg:border lg:px-4 lg:shadow-lg"
 >
-  <div class="flex justify-between items-center mt-5 border-b-2 pb-2">
+  <div class="flex mx-5 justify-between items-center mt-5 border-b-2 pb-2">
     <div class="font-medium text-lg">Recent transaction</div>
     <div class="text-blue-700 cursor-pointer" [routerLink]="['/all-expense']" >View all</div>
   </div>
@@ -14,7 +14,7 @@
   <div class="w-full">
     <app-expense-card [expenseItem]="expense"></app-expense-card>
   </div>
-    
+     
   </div>
   } @else {
   <div class="flex justify-center h-96 lg:h-20 items-center">

@@ -1,17 +1,44 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IExpense } from '../models/interface/IExpense';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ExpenseService {
+export class ExpenseService implements OnInit {
   private baseUrl = 'https://expense-tracker-mzw2.onrender.com/api/expenses';
 
   http = inject(HttpClient);
   auth = inject(AuthService);
+
+  private allExpenseSubject = new BehaviorSubject<IExpense[]>([]);
+  allExpense$ = this.allExpenseSubject.asObservable();
+
+  private recentExpenseSubject = new BehaviorSubject<IExpense[]>([]);
+  recentExpense$ = this.recentExpenseSubject.asObservable();
+
+
+
+  ngOnInit(): void {
+      this.getAllExpenseService();
+      this.getRecentExpenseService(10);
+  }
+
+  getAllExpenseService(){
+    this.http.get<IExpense[]>(`${this.baseUrl}/${this.userId}`).subscribe((res : IExpense[]) => {
+      this.allExpenseSubject.next(res);
+    })
+  }
+
+  getRecentExpenseService(limit : number) {
+    this.http.get<IExpense[]>(`${this.baseUrl}/page/${this.userId}/${limit}`).subscribe((res : IExpense[]) => {
+      this.recentExpenseSubject.next(res);
+      console.log(res);
+    })
+  }
+
 
 
 
