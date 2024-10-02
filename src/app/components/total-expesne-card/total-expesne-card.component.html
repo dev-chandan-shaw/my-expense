@@ -1,15 +1,15 @@
 <div class="flex justify-center items-center m-auto mb-2">
   <div
-    class="bg-white text-black shadow-md dark:text-white shadow-mdx` dark:bg-gray-800 p-5 w-[90%] lg:w-[50%] rounded-md"
+    class="text-black shadow-md border  p-5 w-[90%] lg:w-[50%] rounded-md"
   >
     <div
-      class="date flex justify-center gap-4 items-center font-bold text-xl bg-blue-900 text-white dark:bg-gray-600 p-3 rounded-md text-center"
+      class="date flex justify-center gap-4 items-center font-bold text-xl bg-blue-900 text-white p-3 rounded-md text-center"
     >
       <button class="font-extrabold" (click)="goToPreviousMonth()">&lt;</button>
       <span class="w-[10rem]"> {{currentMonthName}}, {{currentYear}}</span>
       <button class="font-extrabold" (click)="goToNextMonth()">&gt;</button>
     </div>
-    <div class="mt-2 font-semibold">
+    <div class="mt-2 font-medium">
       @for (item of category; track $index) {
       <div class="flex justify-between p-2 mx-5">
         
@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="flex justify-center items-center text-white m-auto mb-2">
+<!-- <div class="flex justify-center items-center text-white m-auto mb-2">
   <div
     class="bg-white shadow-md dark:bg-gray-800 p-5 w-[90%] lg:w-[50%] rounded-md"
   >
@@ -48,4 +48,4 @@
       } }
     </div>
   </div>
-</div>
+</div> -->

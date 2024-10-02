@@ -41,4 +41,8 @@ export class ExpenseService {
   addExpense(expense: any): Observable<any> {
     return this.http.post(`${this.baseUrl}`, expense);
   }
+
+  getLimitedExpense(limit : number) : Observable<IExpense[]> {
+    return this.http.get<IExpense[]>(`${this.baseUrl}/page/${this.userId}/${limit}`);
+  }
 }

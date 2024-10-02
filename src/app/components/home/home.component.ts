@@ -8,11 +8,12 @@ import { BehaviorSubject } from 'rxjs';
 import { TotalExpesneCardComponent } from "../total-expesne-card/total-expesne-card.component";
 import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { UserProfileComponent } from "../user-profile/user-profile.component";
+import { RecentTransactionComponent } from "../recent-transaction/recent-transaction.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ExpenseCardComponent, NavigationBarComponent, CommonModule, AddExpenseFormComponent, TotalExpesneCardComponent, NavBarComponent, UserProfileComponent],
+  imports: [ExpenseCardComponent, NavigationBarComponent, CommonModule, AddExpenseFormComponent, TotalExpesneCardComponent, NavBarComponent, UserProfileComponent, RecentTransactionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
