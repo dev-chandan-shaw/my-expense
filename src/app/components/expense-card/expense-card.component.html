@@ -1,18 +1,25 @@
-<div
-  class="container text-center flex mb-2 gap-10 bg-white dark:bg-gray-800 shadow-md mx-auto rounded-md justify-between p-5 w-[90%] lg:w-[50%] text-white">
-  <div class="font-bold flex items-center gap-1">
-    @if (expenseItem.category === 'Food/Drink') {
-      <img class="h-7 w-7 rounded-full object-cover bg-white" src="https://w7.pngwing.com/pngs/742/10/png-transparent-breakfast-restaurant-cafe-indian-cuisine-ellipsis-breakfast-blue-food-text-thumbnail.png" alt="">
-    } @else if (expenseItem.category === 'Shopping') {
-      <img class="h-7 w-7 rounded-full object-cover bg-white" src="https://printify.com/wp-content/uploads/2022/06/Design-Placement-on-Front-of-Shirt-Oversize-Front.svg" alt="">
-    } @else if (expenseItem.category === 'Bill/Recharge') {
-      <img class="h-7 w-7 rounded-full object-cover bg-white" src="https://img.freepik.com/premium-vector/flat-illustration-money-lying-red-background-high-quality_599292-3954.jpg" alt="">
-    } @else if (expenseItem.category === 'Transport') {
-      <img class="h-7 w-7 rounded-full object-cover bg-white" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-8cns4F5KAgTddyY0484dJm81_8kuxcJIQA&s" alt="">
-    } 
-      
-    
-    <div>{{ expenseItem.category }}</div>
+<div class="flex justify-between border-b-2 border-gray-200 py-4 items-center mx-4">
+  <div class="flex items-center gap-2">
+    <div class="flex items-center gap-4">
+      <div>
+        @if (expenseItem.category === 'Food/Drink') {
+          <img class="h-10 w-10 rounded-full object-cover bg-white" src="https://w7.pngwing.com/pngs/742/10/png-transparent-breakfast-restaurant-cafe-indian-cuisine-ellipsis-breakfast-blue-food-text-thumbnail.png" alt="">
+        } @else if (expenseItem.category === 'Shopping') {
+          <img class="h-10 w-10 rounded-full object-cover bg-white" src="https://printify.com/wp-content/uploads/2022/06/Design-Placement-on-Front-of-Shirt-Oversize-Front.svg" alt="">
+        } @else if (expenseItem.category === 'Bill/Recharge') {
+          <img class="h-10 w-10 rounded-full object-cover bg-white" src="https://img.freepik.com/premium-vector/flat-illustration-money-lying-red-background-high-quality_599292-3954.jpg" alt="">
+        } @else if (expenseItem.category === 'Transport') {
+          <img class="h-10 w-10 rounded-full object-cover bg-white" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-8cns4F5KAgTddyY0484dJm81_8kuxcJIQA&s" alt="">
+        } 
+      </div>
+      <div class="flex flex-col justify-evenly">
+        <div>{{ expenseItem.category }}</div>
+        <div class="text-gray-500">
+          {{ expenseItem.date | date : "EEE, dd MMM" }}
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="font-semibold text-black dark:text-white">&#8377; {{ expenseItem.amount }}</div>
+
+  <div class="font-medium">&#8377;{{ expenseItem.amount }}</div>
 </div>

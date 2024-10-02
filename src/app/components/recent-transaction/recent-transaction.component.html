@@ -3,24 +3,18 @@
 >
   <div class="flex justify-between items-center mt-5 border-b-2 pb-2">
     <div class="font-medium text-lg">Recent transaction</div>
-    <div class="text-blue-700 cursor-pointer">View all</div>
+    <div class="text-blue-700 cursor-pointer" [routerLink]="['/all-expense']" >View all</div>
   </div>
   @if (!isLoading) {
   <div
     *ngFor="let expense of recentExpenseList; let i = index"
     [ngClass]="{ 'border-b-0': i == recentExpenseList.length - 1 }"
-    class="border-b-2 border-gray-2 flex justify-between py-4 items-center"
+    class="flex justify-between items-center"
   >
-    <div class="flex items-center gap-2">
-      <div class="flex flex-col justify-evenly">
-        <div>{{ expense.category }}</div>
-        <div class="text-gray-500">
-          {{ expense.date | date : "EEE, dd MMM" }}
-        </div>
-      </div>
-    </div>
-
-    <div class="font-medium">&#8377;{{ expense.amount }}</div>
+  <div class="w-full">
+    <app-expense-card [expenseItem]="expense"></app-expense-card>
+  </div>
+    
   </div>
   } @else {
   <div class="flex justify-center h-96 lg:h-20 items-center">

@@ -19,6 +19,10 @@ export class ExpenseService {
     return this.auth.getLoggedInUser()._id;
   }
 
+  getAllExpense() : Observable<IExpense[]> {
+    return this.http.get<IExpense[]>(`${this.baseUrl}/${this.userId}`);
+  }
+
   getAllExpenseByMonth(date: Date): Observable<IExpense[]> {
     return this.http.get<IExpense[]>(
       `${this.baseUrl}/query?userId=${
