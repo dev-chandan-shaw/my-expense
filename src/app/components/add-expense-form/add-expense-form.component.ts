@@ -29,6 +29,7 @@ export class AddExpenseFormComponent {
   
   handleAddExpenseRequest() {
     this.expesnseService.addExpense(this.expense).subscribe(res => {
+      console.log(this.expense);
       this.closeForm()
     })
   }
