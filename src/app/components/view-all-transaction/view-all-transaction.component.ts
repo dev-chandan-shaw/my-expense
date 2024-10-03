@@ -4,12 +4,13 @@ import { ExpenseService } from '../../service/expense.service';
 import { ExpenseCardComponent } from "../expense-card/expense-card.component";
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SearchBarComponent } from "../search-bar/search-bar.component";
 
 
 @Component({
   selector: 'app-view-all-transaction',
   standalone: true,
-  imports: [ExpenseCardComponent, CommonModule, MatProgressSpinnerModule],
+  imports: [ExpenseCardComponent, CommonModule, MatProgressSpinnerModule, SearchBarComponent],
   templateUrl: './view-all-transaction.component.html',
   styleUrl: './view-all-transaction.component.css'
 })

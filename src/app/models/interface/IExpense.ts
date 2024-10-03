@@ -1,5 +1,5 @@
 export interface IExpense {
-    expenseId : string,
+    _id : string,
     userId : string,
     category : string,
     amount : number,

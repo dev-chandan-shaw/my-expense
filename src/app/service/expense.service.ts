@@ -26,6 +26,10 @@ export class ExpenseService implements OnInit {
       this.getRecentExpenseService(10);
   }
 
+  getExpense(user_id : string, expense_id : string) : Observable<IExpense> {
+    return this.http.get<IExpense>(`${this.baseUrl}/expense/${user_id}/${expense_id}`)
+  }
+
   getAllExpenseService(){
     this.http.get<IExpense[]>(`${this.baseUrl}/${this.userId}`).subscribe((res : IExpense[]) => {
       this.allExpenseSubject.next(res);

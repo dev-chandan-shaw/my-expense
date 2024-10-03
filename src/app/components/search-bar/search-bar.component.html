@@ -1,0 +1,23 @@
+<div class="flex lg:w-[50%] m-auto items-center justify-center p-2">
+  <input
+    (input)="searchUser($event)"
+    type="text"
+    class="border-black w-full border rounded-3xl p-2"
+  />
+</div>
+<div
+  #expenseListDiv
+  *ngIf="filteredList.length > 0"
+  class="fixed px-2 w-full box-border bg-white lg:w-[50%] left-1/2 translate-x-[-50%]"
+>
+  <div class="border border-black p-2">
+    <div
+      *ngFor="let expense of filteredList"
+      [routerLink]="['/expense', expense.userId, expense._id]"
+      class="hover:bg-gray-400 rounded-md p-2 cursor-pointer"
+    >
+      {{ expense.note }} ({{ expense.category }} |
+      {{ expense.date | date : "dd, MMM" }})
+    </div>
+  </div>
+</div>

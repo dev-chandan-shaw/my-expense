@@ -1,4 +1,4 @@
-<div class="flex justify-between border-b-2 border-gray-200 py-4 items-center mx-4">
+<div class="flex justify-between border-b-2 border-gray-200 py-4 items-center mx-4" (click)="openExpenseItemModel()" >
   <div class="flex items-center gap-2">
     <div class="flex items-center gap-4">
       <div>
@@ -23,3 +23,10 @@
 
   <div class="font-medium">&#8377;{{ expenseItem.amount }}</div>
 </div>
+<div>
+  
+</div>
+<div *ngIf="isExpenseItemModelVisible" class="w-full backdrop-brightness-50 fixed h-dvh top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
+  <app-user-expense [expense]="expenseItem" [(isExpenseModelOpen)]="isExpenseItemModelVisible" ></app-user-expense>
+</div>
+

@@ -6,47 +6,25 @@ import { AddExpenseFormComponent } from "../add-expense-form/add-expense-form.co
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { TotalExpesneCardComponent } from "../total-expesne-card/total-expesne-card.component";
-import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { UserProfileComponent } from "../user-profile/user-profile.component";
 import { RecentTransactionComponent } from "../recent-transaction/recent-transaction.component";
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ExpenseCardComponent, NavigationBarComponent, CommonModule, AddExpenseFormComponent, TotalExpesneCardComponent, NavBarComponent, UserProfileComponent, RecentTransactionComponent],
+  imports: [ExpenseCardComponent, NavigationBarComponent, CommonModule, AddExpenseFormComponent, TotalExpesneCardComponent, UserProfileComponent, RecentTransactionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent {
   isAddExpenseFormOpen!:boolean
 
-  expenses : [] = [];
-
-  baseUrl = "https://expense-tracker-mzw2.onrender.com/api"
-
   http = inject(HttpClient)
-  
-  ngOnInit(): void {
-    let user = localStorage.getItem("user");
-        if (user) {
-          let loggedInUser = JSON.parse(user);
-          let id = loggedInUser._id;
-          console.log(id);
-          this.http.get(`${this.baseUrl}/expenses/${id}`).subscribe((res : any) => {
-            this.expenses = res;
-          })
-        }
-  }
+  auth = inject(AuthService)
 
-  // ngOnInit(changes: SimpleChanges): void {
-  //     let user = localStorage.getItem("user");
-  //     if (user) {
-  //       let loggedInUser = JSON.parse(user);
-  //       let id = loggedInUser._id;
-  //       console.log(id);
-  //       this.http.get(`http://localhost:8080/api/expenses/${id}`).subscribe((res : any) => {
-  //         this.expenses = res;
-  //       })
-  //     }
-  // }
+  get isUserLoggedIn(): boolean {
+    return this.auth.getStatus();
+  }
+  
 }

@@ -1,6 +1,9 @@
-
+<!-- <app-search-bar></app-search-bar> -->
 <div class="lg:w-[50%] m-auto lg:shadow-md">
-    <div class="p-4 font-medium mx-4 border-b-2 text-lg">All transaction</div>
+    <div class="p-4 font-medium mx-4 border-b-2 text-lg flex items-center justify-center gap-5">
+        <!-- <div class="font-bold">&#8592;</div> -->
+        <div>All transaction</div>
+    </div>
 @if (isLoading) {
 <div class="flex justify-center h-[80vh] items-center">
   <mat-spinner [diameter]="40"></mat-spinner>

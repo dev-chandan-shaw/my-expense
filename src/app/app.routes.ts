@@ -6,12 +6,15 @@ import { AddExpenseFormComponent } from './components/add-expense-form/add-expen
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { authGuard } from './guards/auth.guard';
 import { ViewAllTransactionComponent } from './components/view-all-transaction/view-all-transaction.component';
+import { UserExpenseComponent } from './components/user-expense/user-expense.component';
+import { SearchedExpenseComponent } from './components/searched-expense/searched-expense.component';
 
 export const routes: Routes = [
     { path: '', redirectTo:'home', pathMatch: 'full'},
     { path: 'home', component: HomeComponent, canActivate: [authGuard] },
     { path: 'add-expense', component: AddExpenseFormComponent, canActivate: [authGuard]},
     { path: 'all-expense', component: ViewAllTransactionComponent, canActivate: [authGuard]},
+    { path: 'expense/:user_id/:expense_id', component: SearchedExpenseComponent, canActivate: [authGuard]},
     { path: 'login', component: LoginComponent},
     { path: 'signup', component: SignupComponent},
     { path: 'profile', component: UserProfileComponent}

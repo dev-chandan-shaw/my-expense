@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ExpenseService } from '../../service/expense.service';
 import { Expense } from '../../models/class/Expense';
 import { AuthService } from '../../service/auth.service';
@@ -13,7 +13,7 @@ import { AuthService } from '../../service/auth.service';
   templateUrl: './add-expense-form.component.html',
   styleUrl: './add-expense-form.component.css'
 })
-export class AddExpenseFormComponent {
+export class AddExpenseFormComponent implements OnInit{
 
   @Input() isAddExpenseFormOpen!:boolean
   @Output() isAddExpenseFormOpenChange = new EventEmitter<boolean>();
@@ -22,6 +22,17 @@ export class AddExpenseFormComponent {
   http = inject(HttpClient)
   expesnseService = inject(ExpenseService);
   auth = inject(AuthService);
+  route = inject(ActivatedRoute)
+
+  whiteList = ['view-all']
+
+  check() {
+    console.log(this.route.url);
+  }
+
+  ngOnInit(): void {
+      this.check()
+  }
     
 
   expense : Expense = new Expense(this.auth.getLoggedInUser()._id);

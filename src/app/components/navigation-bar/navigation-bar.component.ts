@@ -2,12 +2,15 @@ import {
   Component,
   EventEmitter,
   HostListener,
+  inject,
   Input,
+  OnInit,
   Output,
 } from '@angular/core';
 import { AddExpenseFormComponent } from '../add-expense-form/add-expense-form.component';
 import { CommonModule, NgClass } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -17,6 +20,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './navigation-bar.component.css',
 })
 export class NavigationBarComponent {
+
+  route = inject(ActivatedRoute)
+  
   
   @Input() isAddExpenseFormOpen!: boolean;
   @Output() isAddExpenseFormOpenChange = new EventEmitter<boolean>();
